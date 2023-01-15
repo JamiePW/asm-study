@@ -1,7 +1,7 @@
 assume cs:code,ds:data,ss:stack
 
 data segment
-    db 16 dup (0)
+    db 16 dup (15)
 data ends
 
 stack segment
@@ -38,7 +38,9 @@ dtoc:   ;this funtion transfer a DEC number(word type) to a string(end with 0)
         mov dx,0
         push dx ;put a 0 in bottom so that we can identify the end of string
 
-transin:div cx
+        transin:
+
+        div cx
         add dx,30h ;store ascii code
         push dx
         mov dx,0
@@ -47,14 +49,19 @@ transin:div cx
         mov cx,10
         jmp short transin
 
-transout:
+        transout:
+
         pop cx
         jcxz transok
         mov ds:[si],cl
         inc si
         jmp short transout
 
-transok:pop cx
+        transok:
+
+        mov cx,0
+        mov ds:[si],cx ;put in a 0 to mark the end of the string
+        pop cx
         pop dx
         pop ax
         ret
@@ -65,9 +72,8 @@ show_str:
         push cx
 
         mov al,10
-        inc dh
         mul dh
-        add ax,0b800h ;caculate the segment address of line
+        add ax,0b80Ah ;caculate the segment address of line
         mov es,ax
 
         mov bl,dl

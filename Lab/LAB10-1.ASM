@@ -32,9 +32,9 @@ show_str: ;this funtion display a particular string end with 0 in particular pos
         push cx
 
         mov al,10
-        inc dh
+        ;inc dh
         mul dh
-        add ax,0b800h ;caculate the segment address of line
+        add ax,0b80Ah ;caculate the segment address of line
         mov es,ax
 
         mov bl,dl

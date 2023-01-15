@@ -18,7 +18,7 @@ start:  mov ax,stack
         int 21h
 
 divdw:  ;this funtion execute dword division without overflow
-        ;para: ax: low bits; dx: high bits; cx: remainder
+        ;para: ax: low bits; dx: high bits; cx: divisor
         ;return values: ax: low bits, dx: high bits, cx: remainder
         push bx
 
